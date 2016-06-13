@@ -1,0 +1,14 @@
+.fancybox img {
+    max-width: 80%!important;
+    display: block;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 4px #bbb;
+    -webkit-box-shadow: 2px 2px 4px #bbb;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    margin: auto;
+}
+
+.fancybox-image {
+    max-width: 100%;
+}
