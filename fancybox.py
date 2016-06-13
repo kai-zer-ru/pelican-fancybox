@@ -33,14 +33,6 @@ def fancybox(generator):
 	
 	generator._update_context(['fancybox'])
 
-	# articles = []
-	# for article in generator.articles:
-	# 	articles.append(article)
-	# for article in articles:
-	# 	c = article.content
-	# 	c += '<script type="text/javascript">imgs = $(".article-content").find("img");$(imgs).each(function(i,img) {	img.parent().wrapInner("<a class=\"fancybox\" rel=\"' + article. category.name + '\">", "</a>");});</script>'
-
-	# generator.articles = articles
 
 def cp_js(pelican, writer):
     src = path.join(path.dirname(__file__), "static", "js")
