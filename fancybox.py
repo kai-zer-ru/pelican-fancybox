@@ -10,7 +10,7 @@ def initialized(pelican):
         pelican.settings.setdefault('FANCYBOX_ENABLED', True)
 
 def fancybox(generator):
-	generator.fancybox = '<script type=\"text/javascript\" src=\"http://code.jquery.com/jquery-latest.min.js\">'
+	generator.fancybox = '<script type=\"text/javascript\" src=\"//code.jquery.com/jquery-latest.min.js\">'
 	generator.fancybox += '</script>'
 	generator.fancybox += '<script type="text/javascript" src="/fancybox/lib/jquery.mousewheel-3.0.6.pack.js">'
 	generator.fancybox += '</script>'
