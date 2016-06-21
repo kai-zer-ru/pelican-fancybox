@@ -1,15 +1,24 @@
 # coding: utf-8
 from pelican import signals
 from os import path
-import shutil
+import shutil, json
+from copy import copy as supercopy
+
+fancybox_settings = {}
 
 def initialized(pelican):
-    from pelican.settings import DEFAULT_CONFIG
-    DEFAULT_CONFIG.setdefault('FANCYBOX_ENABLED', True)
-    if pelican:
-        pelican.settings.setdefault('FANCYBOX_ENABLED', True)
+	global fancybox_settings
+	from pelican.settings import DEFAULT_CONFIG
+	DEFAULT_CONFIG.setdefault('FANCYBOX_SETTINGS', {})
+	if pelican:
+		pelican.settings.setdefault('FANCYBOX_SETTINGS', {})
+		fancybox_settings = supercopy(pelican.settings['FANCYBOX_SETTINGS'])
 
 def fancybox(generator):
+	global fancybox_settings
+	fancybox_settings_str = json.dumps(fancybox_settings)
+
+
 	generator.fancybox = '<script type=\"text/javascript\" src=\"//code.jquery.com/jquery-latest.min.js\">'
 	generator.fancybox += '</script>'
 	generator.fancybox += '<script type="text/javascript" src="/fancybox/lib/jquery.mousewheel-3.0.6.pack.js">'
@@ -28,7 +37,10 @@ def fancybox(generator):
 	generator.fancybox += '<script type="text/javascript" src="/js/fancybox.js">'
 	generator.fancybox += '</script>'
 	generator.fancybox += '<script>'
-	generator.fancybox += '$( document ).ready(function(){activate_fancybox();$(".fancybox").fancybox();});'
+	if fancybox_settings_str == {}:
+		generator.fancybox += '$( document ).ready(function(){activate_fancybox();$(".fancybox").fancybox();});'
+	else:
+		generator.fancybox += '$( document ).ready(function(){activate_fancybox();$(".fancybox").fancybox(' + fancybox_settings_str + ');});'
 	generator.fancybox += '</script>'
 	generator.fancybox += '<link rel="stylesheet" href="/css/fancybox.css" type="text/css"/>'	
 	generator._update_context(['fancybox'])
